@@ -1,0 +1,7 @@
+car rac
+yes no
+yes sey
+yes say
+monaco ocanom
+palindrome dromepalin
+cat mat
