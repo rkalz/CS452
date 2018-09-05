@@ -1,7 +1,7 @@
 \documentclass{report}
 
-\title{CS452: Assignment 1}
-\date{2018-09-04}
+\title{CS 452: Assignment 1}
+\date{September 11, 2018}
 \author{Rofael Aleezada}
 
 \usepackage{mathtools}
@@ -11,7 +11,7 @@
 
     \section{Question 1}
     Express the following in terms of Big-O notation:
-        \subsection{$(n^3)/1000 - 100 * n^2 + 50$}
+        \subsection{$n^3/1000 - 100 * n^2 + 50$}
         	\begin{itemize}
         		\item{$O(n^3 / 1000 - 100 * n^2 + 50)$}
         		\item{$O(n^3 / 1000) - O(100*n^2) + O(50)$}
@@ -29,10 +29,10 @@
     \section{Question 2}
     Assuming the Merge portion of merge sort remains $O(n)$, what would be the complexity of Merge sort if the array was divided into thirds instead of halves?
         \begin{itemize}
-            \item{The part of merge sort where each half of the array is referenced recursively is $O(\log n)$}
+            \item{The part of merge sort where the array is recursively cut in half is $O(\log n)$}
             \item{This is technically $O(n\log_2 n)$, as an array of length $n$ will have $\log_2 n$ recursive layers due to dividing the array by two at each level}
             \item{Thus, if each recursive call divided the array into three pieces, that part becomes $O(\log_3 n)$}
-            \item{Meaning this new merge sort is now $O(n\log_3 n)$, essentially $O(n\log n)$ and otherwise unchanged}
+            \item{Meaning this new merge sort is now $O(n\log_3 n)$, which simplifies to $O(n\log n)$ and essentially the same}
         \end{itemize}
         The solution is $O(n\log n)$
 
@@ -42,7 +42,7 @@
             \item{The runtime of performing Merge on two arrays of length n is $O(2n)$, $O(n)$}
             \item{For every $k$ rows, $k - 1$ merge operations are needed}
                 \begin{itemize}
-                    \item{2 arrays, 1 merges}
+                    \item{2 arrays, 1 merge}
                     \item{3 arrays, 2 merges}
                     \item{4 arrays, 3 merges}
                 \end{itemize}
@@ -63,7 +63,7 @@
                   \item{8 arrays, 3 splits}
                 \end{itemize}
             \item{For every k arrays, we perform $\log_2 k$ or $\log k$ splits}
-            \item{In total, the complexity for this algorithm will be \textbf{$O(n\log k)$}}
+            \item{In total, the complexity for this algorithm will be $O(n\log k)$}
         \end{itemize}
         The solution is $O(n\log k)$
 
@@ -72,8 +72,8 @@
         \begin{enumerate}
             \item{$2^{\sqrt{\log_2 n}}$ is the slowest growing}
             \item{$\sqrt n$}
-            \item{$10^{1.5}$}
-            \item{$10^{5/3}$}
+            \item{$n^{1.5}$}
+            \item{$n^{5/3}$}
             \item{$10^n$ is the fastest growing}
         \end{enumerate}
 
@@ -88,12 +88,12 @@
     \section{Question 7}
     Write a recurrence function for the running time of a recursive version of insertion sort.
     	\begin{itemize}
-    		\item{Simply put, in insertion sort, you have to compare every item with every other item}
+    		\item{In insertion sort, every value is compared to every other value that hasn't been looked at yet}
     		\item{Comparing a single value to all other values is $O(n - 1)$, and after a value is compared with all other values, the process is repeated $n-1$ times}
     		\item{$T(n) = n + (n - 1) + (n - 2) + ... + 2 + 1$}
     		\item{$T(n) = n + (n - 1) + (n-2) + ... + T(2)$}
     		\item{$T(n) = n + (n - 1) + T(n-2)$}
-    		\item{The recurrence function of recursive insertion sort is $T(n) = T(n-1) + O(n)$}
+    		\item{The recurrence function of the recursive insertion sort algorithm is $T(n) = T(n-1) + O(n)$}
 		\end{itemize}
         The solution is $T(n) = T(n-1) + O(n)$
 
