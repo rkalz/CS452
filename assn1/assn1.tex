@@ -14,8 +14,8 @@
     Express the following in terms of Big-O notation:
         \subsection{$n^3/1000 - 100 * n^2 + 50$}
         	\begin{itemize}
-        		\item{$O(n^3 / 1000 - 100 * n^2 + 50)$}
-        		\item{$O(n^3 / 1000) - O(100*n^2) + O(50)$}
+        		\item{$O(n^3 / 1000 - 100n^2 + 50)$}
+        		\item{$O(n^3 / 1000) - O(100n^2) + O(50)$}
         		\item{$O(n^3) - O(n^2)$}
         	\end{itemize}
         \textbf{The solution is} $O(n^3)$.
@@ -28,10 +28,10 @@
         \textbf{The solution is} $O(n^a)$
 
     \section{Question 2}
-    Assuming the Merge portion of merge sort remains $O(n)$, what would be the complexity of Merge sort if the array was divided into thirds instead of halves?
+    Assuming the Merge portion of Merge sort remains $O(n)$, what would be the complexity of Merge sort if the array was divided into thirds instead of halves?
         \begin{itemize}
             \item{The part of merge sort where the array is recursively cut in half is $O(\log n)$}
-            \item{This is technically $O(n\log_2 n)$, as an array of length $n$ will have $\log_2 n$ recursive layers due to dividing the array by two at each level}
+            \item{This is technically $O(\log_2 n)$, as an array of length $n$ will have $\log_2 n$ recursive layers due to dividing the array by two at each level}
             \item{Thus, if each recursive call divided the array into three pieces, that part becomes $O(\log_3 n)$}
             \item{Meaning this new merge sort is now $O(n\log_3 n)$, which simplifies to $O(n\log n)$ and essentially the same}
         \end{itemize}
@@ -47,10 +47,10 @@
                     \item{3 arrays, 2 merges}
                     \item{4 arrays, 3 merges}
                 \end{itemize}
-            \item{Thus, merging k sorted arrays of length n would would have a runtime of $O((k-1)n)$}
-            \item{This can be expanded to $O(kn - k)$, which simplifies to $O(kn)$}
+            \item{Thus, merging k sorted arrays of length n would would have a runtime of $O(n(k-1))$}
+            \item{This can be expanded to $O(nk - n)$, which simplifies to $O(nk)$}
         \end{itemize}
-    \textbf{The solution is} $O(kn)$
+    \textbf{The solution is} $O(nk)$
 
     \section{Question 4}
     Extending Question 3, consider an algorithm that divides $k$ arrays, forms $k/2$ sorted length $2n$ arrays,
@@ -79,13 +79,16 @@
         \end{enumerate}
 
     \section{Question 6}
-    Given the array $[3, 1, 2, 4, 5, 8, 7, 6, 9]$, which of the following are a potential pivot for Quicksort?
+    Given the array $[3, 1, 2, 4, 5, 8, 7, 6, 9]$, which of the following are a potential pivot for Quick sort?
         \begin{itemize}
             \item{There are two primary algorithms for selecting a pivot}
-            \item{One is randomly selecting a number from the array, in which case \textbf{all values in the array are possible solutions}}
-            \item{The other is an algorithm called "Median of Three", in which the values at the first, last, and median index are arranged in ascending order, and use the median index as the pivot}
-            \item{For median of three, our first, median, and last values are 3, 5, and 9, respectively}
-            \item{Since our three values are already in ascending order, no swaps occur, and \textbf{the pivot would be value 5}}
+            \item{One is randomly selecting a number from the array, in which case \textbf{all values in the array are possible pivots}}
+            \item{The other is an algorithm called "Median of Three", in which the values at the first, last, and median index are arranged in ascending order, and the median index is used as the pivot}
+            \begin{itemize}
+				\item{For median of three, our first, median, and last values are 3, 5, and 9, respectively}
+           		\item{Since our three values are already in ascending order, no swaps occur}
+           		\item{In this case, \textbf{the pivot is the value 5}}
+            \end{itemize}
         \end{itemize}
 
     \section{Question 7}
@@ -93,9 +96,11 @@
     	\begin{itemize}
     		\item{In insertion sort, every value is compared to every other value that hasn't been looked at yet}
     		\item{Comparing a single value to all other values is $O(n - 1)$, and after a value is compared with all other values, the process is repeated $n-1$ times}
-    		\item{$T(n) = n + (n - 1) + (n - 2) + ... + 2 + 1$}
-    		\item{$T(n) = n + (n - 1) + (n-2) + ... + T(2)$}
-    		\item{$T(n) = n + (n - 1) + T(n-2) = T(n-1) + O(n)$}
+    		\begin{itemize}
+	    		\item{$T(n) = n + (n - 1) + (n - 2) + ... + 2 + 1$}
+	    		\item{$T(n) = n + (n - 1) + (n-2) + ... + T(2)$}
+	    		\item{$T(n) = n + (n - 1) + T(n-2) = T(n-1) + O(n)$}
+    		\end{itemize}
 		\end{itemize}
     \textbf{The solution is} $T(n) = T(n-1) + O(n)$
 
