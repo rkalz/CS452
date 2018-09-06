@@ -1,9 +1,9 @@
-\documentclass{report}
+\documentclass{article}
 
 \title{CS 452: Assignment 1}
 \date{September 11, 2018}
 \author{Rofael Aleezada}
-
+\usepackage[left=2.5cm, right=2.5cm, top=2.5cm]{geometry}
 \usepackage{mathtools}
 
 \begin{document}
@@ -17,14 +17,14 @@
         		\item{$O(n^3 / 1000) - O(100*n^2) + O(50)$}
         		\item{$O(n^3) - O(n^2)$}
         	\end{itemize}
-            The solution is $O(n^3)$.
+        \textbf{The solution is} $O(n^3)$.
 
         \subsection{$n^a + n^b$ ($a > b$ and $b > 0$)}
         	\begin{itemize}
         		\item{$O(n^a) + O(n^b)$}
         		\item{$a > b, n^a > n^b$}
         	\end{itemize}
-            The solution is $O(n^a)$
+        \textbf{The solution is} $O(n^a)$
 
     \section{Question 2}
     Assuming the Merge portion of merge sort remains $O(n)$, what would be the complexity of Merge sort if the array was divided into thirds instead of halves?
@@ -34,7 +34,7 @@
             \item{Thus, if each recursive call divided the array into three pieces, that part becomes $O(\log_3 n)$}
             \item{Meaning this new merge sort is now $O(n\log_3 n)$, which simplifies to $O(n\log n)$ and essentially the same}
         \end{itemize}
-        The solution is $O(n\log n)$
+    \textbf{The solution is} $O(n\log n)$
 
     \section{Question 3}
     Using the $O(n)$ Merge routine, what would be the runtime of a function that merges $k$ sorted arrays of length $n$
@@ -49,7 +49,7 @@
             \item{Thus, merging k sorted arrays of length n would would have a runtime of $O((k-1)n)$}
             \item{This can be expanded to $O(kn - k)$, which simplifies to $O(kn)$}
         \end{itemize}
-        The solution is $O(kn)$
+    \textbf{The solution is} $O(kn)$
 
     \section{Question 4}
     Extending Question 3, consider an algorithm that divides $k$ arrays, forms $k/2$ sorted length $2n$ arrays,
@@ -65,7 +65,7 @@
             \item{For every k arrays, we perform $\log_2 k$ or $\log k$ splits}
             \item{In total, the complexity for this algorithm will be $O(n\log k)$}
         \end{itemize}
-        The solution is $O(n\log k)$
+    \textbf{The solution is} $O(n\log k)$
 
     \section{Question 5}
     Arrange the given functions in order of increasing growth rate.
@@ -80,10 +80,9 @@
     \section{Question 6}
     Given the array [3, 1, 2, 4, 5, 8, 7, 6, 9], which of the following are a potential pivot for Quicksort?
         \begin{itemize}
-            \item{A pivot is defined as a position where all numbers before pivot are less than A[pivot] and all numbers after pivot are greater than A[pivot]}
-            \item{Possible pivot values are 4 and 5}
+            \item{A pivot is defined as a position where all numbers before the pivot are less than A[pivot] and all numbers after pivot are greater than A[pivot]}
         \end{itemize}
-        The solutions are \textbf{values 4 and 5}
+    \textbf{The solutions are values 4 and 5}
 
     \section{Question 7}
     Write a recurrence function for the running time of a recursive version of insertion sort.
@@ -92,9 +91,8 @@
     		\item{Comparing a single value to all other values is $O(n - 1)$, and after a value is compared with all other values, the process is repeated $n-1$ times}
     		\item{$T(n) = n + (n - 1) + (n - 2) + ... + 2 + 1$}
     		\item{$T(n) = n + (n - 1) + (n-2) + ... + T(2)$}
-    		\item{$T(n) = n + (n - 1) + T(n-2)$}
-    		\item{The recurrence function of the recursive insertion sort algorithm is $T(n) = T(n-1) + O(n)$}
+    		\item{$T(n) = n + (n - 1) + T(n-2) = T(n-1) + O(n)$}
 		\end{itemize}
-        The solution is $T(n) = T(n-1) + O(n)$
+    \textbf{The solution is} $T(n) = T(n-1) + O(n)$
 
 \end{document}

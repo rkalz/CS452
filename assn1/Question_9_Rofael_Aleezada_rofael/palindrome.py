@@ -3,7 +3,11 @@ import os
 
 def is_palindrome(string):
     # Remove all extraneous characters
-    formatted_string = ''.join([c for c in string if c.isalpha()]).lower()
+    formatted_string = ''.join([c for c in string if c.isalnum()]).lower()
+
+    if len(formatted_string) < 2:
+        # Special case if we have 0 or 1 alphanumeric characters
+        return True
 
     # Select starting characters for palindrome checking
     a = int(len(formatted_string) / 2)
