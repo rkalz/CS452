@@ -3,6 +3,7 @@
 \title{CS 452: Assignment 1}
 \date{September 11, 2018}
 \author{Rofael Aleezada}
+
 \usepackage[left=2.5cm, right=2.5cm, top=2.5cm]{geometry}
 \usepackage{mathtools}
 
@@ -78,11 +79,14 @@
         \end{enumerate}
 
     \section{Question 6}
-    Given the array [3, 1, 2, 4, 5, 8, 7, 6, 9], which of the following are a potential pivot for Quicksort?
+    Given the array $[3, 1, 2, 4, 5, 8, 7, 6, 9]$, which of the following are a potential pivot for Quicksort?
         \begin{itemize}
-            \item{A pivot is defined as a position where all numbers before the pivot are less than A[pivot] and all numbers after pivot are greater than A[pivot]}
+            \item{There are two primary algorithms for selecting a pivot}
+            \item{One is randomly selecting a number from the array, in which case \textbf{all values in the array are possible solutions}}
+            \item{The other is an algorithm called "Median of Three", in which the values at the first, last, and median index are arranged in ascending order, and use the median index as the pivot}
+            \item{For median of three, our first, median, and last values are 3, 5, and 9, respectively}
+            \item{Since our three values are already in ascending order, no swaps occur, and \textbf{the pivot would be value 5}}
         \end{itemize}
-    \textbf{The solutions are values 4 and 5}
 
     \section{Question 7}
     Write a recurrence function for the running time of a recursive version of insertion sort.
