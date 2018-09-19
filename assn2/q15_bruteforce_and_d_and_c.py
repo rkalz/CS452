@@ -1,4 +1,8 @@
 import os
+from math import log10
+from timeit import default_timer as timer
+
+import matplotlib.pyplot as plt
 
 
 def brute_force_find_inversions(arr):
@@ -59,31 +63,48 @@ def _merge_sort(arr, a, b):
     return inversions
 
 
-def _binary_search(arr, val, a, b):
-    if a > b:
-        return -1
-
-    if a == b and arr[a] == val:
-        return a
-
-    mid = int((a + b) / 2)
-    mid_val = arr[mid]
-
-    if mid_val == val:
-        return mid
-
-    if mid_val > val:
-        return _binary_search(arr, val, a, mid - 1)
-
-    return _binary_search(arr, val, mid + 1, b)
-
-
 def divide_conquer_find_inversions(arr):
     return _merge_sort(arr, 0, len(arr)-1)
 
 
-
 if __name__ == "__main__":
-    arr = [9,5,2,4,3,6,0]
-    print(brute_force_find_inversions(arr))
-    print(divide_conquer_find_inversions(arr))
+    files_path = os.path.dirname(os.path.realpath(__file__)) + "/"
+    test_files = ["10", "50", "100", "150", "200", "250", "300", "350", "400", "450", "500", "1000", "5000"]
+
+    brute_force_times = []
+    divide_and_conquer_times = []
+    repeats = 1
+
+    for size in test_files:
+        print(size)
+        numbers = [int(i) for i in open(files_path + size).read().split()]
+        bft = 0
+        dct = 0
+
+        for _ in range(repeats):
+            start = timer()
+            brute_force_find_inversions(numbers)
+            end = timer()
+            bft += end - start
+
+            start = timer()
+            divide_conquer_find_inversions(numbers)
+            end = timer()
+            dct += end - start
+
+        bft = bft / repeats
+        dct = dct / repeats
+
+        brute_force_times.append(bft)
+        divide_and_conquer_times.append(dct)
+
+    x = [log10(int(i)) for i in test_files]
+    bft_graph, = plt.plot(x, brute_force_times, 'ro')
+    dct_graph, = plt.plot(x, divide_and_conquer_times, 'bo')
+    plt.xlabel("Length of Array")
+    plt.ylabel("Time Taken (sec)")
+    plt.legend([bft_graph, dct_graph], ["Brute Force Times", "Divide and Conquer Times"])
+    plt.show()
+
+
+
