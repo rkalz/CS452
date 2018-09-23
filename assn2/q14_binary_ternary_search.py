@@ -1,4 +1,5 @@
 import os
+from math import log10
 from timeit import default_timer as timer
 
 import matplotlib.pyplot as plt
