@@ -5,7 +5,7 @@
 \author{Rofael Aleezada}
 
 \usepackage[left=2.5cm, right=2.5cm, top=2.5cm]{geometry}
-\usepackage{mathtools,graphicx}
+\usepackage{mathtools,graphicx,amsmath,xfrac}
 
 \begin{document}
     \maketitle
@@ -52,13 +52,13 @@
    \pagebreak
    \section{Question 3}
    Use Karatsuba's method to compute $1201 * 2430$, exiting the recursion when $n = 1$, and compare to the traditional method.
-   Let $d$ be the number of digits in both numbers, $4$ in this case. 
    	\begin{itemize}
    		\item Karatsuba's method
-   			\begin{center}
-   				\includegraphics[scale=0.5]{q3.png}
-   			\end{center}
    			\begin{itemize}
+   				\item 
+   					\begin{center}
+   						\includegraphics[scale=0.5]{q3.png}
+   					\end{center}
    				\item 12 operations are performed
    			\end{itemize}
    		\item Traditional method
@@ -72,7 +72,342 @@
    				\item 16 operations are performed
    			\end{itemize}
   	\end{itemize}
-    	
-    	
+  
+  \pagebreak
+  \section{Question 4}
+  Use Strassen's Algorithm (stop recursion when $n = 2$) to compute
+  \[
+  	\begin{bmatrix}
+  		1 & 0 & 2 & 1 \\
+  		4 & 1 & 1 & 0 \\
+  		0 & 1 & 3 & 0 \\
+  		5 & 0 & 2 & 1
+  	\end{bmatrix}
+  	X
+  	\begin{bmatrix}
+  	0 & 1 & 0 & 1 \\
+  	2 & 1 & 0 & 4 \\
+  	2 & 0 & 1 & 1 \\
+  	1 & 3 & 5 & 0
+  	\end{bmatrix}
+  \]
+\begin{itemize}
+ 	\item Strassen's Algorithm
+ 		\begin{itemize}
+ 			\item Divide both matrices each into four 2x2 matrices
+ 			\item 
+ 				\[
+ 					X = 
+ 					\begin{bmatrix}
+ 					1 & 0 & 2 & 1 \\
+ 					4 & 1 & 1 & 0 \\
+ 					0 & 1 & 3 & 0 \\
+ 					5 & 0 & 2 & 1
+ 					\end{bmatrix}
+ 					\rightarrow A = 
+ 					\begin{bmatrix}
+ 					1 & 0 \\
+ 					4 & 1
+ 					\end{bmatrix}
+ 					B = 
+ 					\begin{bmatrix}
+ 					2 & 1 \\
+ 					1 & 0
+ 					\end{bmatrix}
+ 					C = 
+ 					\begin{bmatrix}
+ 					0 & 1 \\
+ 					5 & 0
+ 					\end{bmatrix}
+ 					D = 
+ 					\begin{bmatrix}
+ 					3 & 0 \\
+ 					2 & 1
+ 					\end{bmatrix}
+ 				\]
+		\item 
+			\[
+				Y = 
+				\begin{bmatrix}
+				0 & 1 & 0 & 1 \\
+				2 & 1 & 0 & 4 \\
+				2 & 0 & 1 & 1 \\
+				1 & 3 & 5 & 0
+				\end{bmatrix}
+				\rightarrow E = 
+				\begin{bmatrix}
+				0 & 1 \\
+				2 & 1
+				\end{bmatrix}
+				F = 
+				\begin{bmatrix}
+				0 & 1 \\
+				0 & 4
+				\end{bmatrix}
+				G = 
+				\begin{bmatrix}
+				2 & 0 \\
+				1 & 3
+				\end{bmatrix}
+				H = 
+				\begin{bmatrix}
+				1 & 1 \\
+				5 & 0
+				\end{bmatrix}
+			\]
+		\item Per Strasson's Algorithm, the following computations are performed
+			\begin{itemize}
+				\item $M_1 = (A + C) * (E + F)$
+					\begin{itemize}
+						\item 
+							\[
+								A + C = 
+								\begin{bmatrix}
+								1 + 0 & 0 + 1 \\
+								4 + 5 & 1 + 0
+								\end{bmatrix}
+								= 
+								\begin{bmatrix}
+								1 & 1 \\
+								9 & 1
+								\end{bmatrix}
+							\]
+						\item
+							\[
+							E + F = 
+							\begin{bmatrix}
+							0 + 0 & 1 + 1 \\
+							2 + 0 & 1 + 4
+							\end{bmatrix}
+							= 
+							\begin{bmatrix}
+							0 & 2 \\
+							2 & 5
+							\end{bmatrix}
+							\]
+						\item
+							\[
+								(A + C) * (E + F) = 
+								\begin{bmatrix}
+								2 & 7 \\
+								2 & 23
+								\end{bmatrix}
+							\]
+					\end{itemize}
+				\item $M_2 = (B + D) * (G + H)$
+					\begin{itemize}
+						\item 
+						\[
+						B + D = 
+						\begin{bmatrix}
+						2 + 3 & 1 + 0 \\
+						1 + 2 & 0 + 1
+						\end{bmatrix}
+						= 
+						\begin{bmatrix}
+						5 & 1 \\
+						3 & 1
+						\end{bmatrix}
+						\]
+						\item
+						\[
+						G + H = 
+						\begin{bmatrix}
+						2 + 1 & 0 + 1 \\
+						1 + 5 & 3 + 0
+						\end{bmatrix}
+						= 
+						\begin{bmatrix}
+						3 & 1 \\
+						6 & 3
+						\end{bmatrix}
+						\]
+						\item
+						\[
+						(B + D) * (G + H) = 
+						\begin{bmatrix}
+						21 & 8 \\
+						15 & 6
+						\end{bmatrix}
+						\]
+					\end{itemize}
+				\pagebreak
+				\item $M_3 = (A - D) * (E + H)$
+					\begin{itemize}
+						\item 
+						\[
+						A - D = 
+						\begin{bmatrix}
+						1 - 3 & 0 - 0 \\
+						4 - 2 & 1 - 1
+						\end{bmatrix}
+						= 
+						\begin{bmatrix}
+						-2 & 0 \\
+						2 & 0
+						\end{bmatrix}
+						\]
+						\item
+						\[
+						E + H = 
+						\begin{bmatrix}
+						0 + 1 & 1 + 1 \\
+						2 + 5 & 1 + 0
+						\end{bmatrix}
+						= 
+						\begin{bmatrix}
+						1 & 2 \\
+						7 & 1
+						\end{bmatrix}
+						\]
+						\item
+						\[
+						(A - D) * (E + H) = 
+						\begin{bmatrix}
+						-2 & -4 \\
+						2 & 4
+						\end{bmatrix}
+						\]
+					\end{itemize}
+				\item $M_4 = A * (F - H)$
+					\begin{itemize}
+						\item 
+						\[
+						F - H = 
+						\begin{bmatrix}
+						0 - 1 & 1 - 1 \\
+						2 - 5 & 1 - 0
+						\end{bmatrix}
+						= 
+						\begin{bmatrix}
+						-1 & 0 \\
+						-3 & 1
+						\end{bmatrix}
+						\]
+						\item
+						\[
+						A * (F - H) = 
+						\begin{bmatrix}
+						-1 & -0 \\
+						-7 & 1
+						\end{bmatrix}
+						\]
+					\end{itemize}
+				\item $M_5 = (C + D) * E$
+					\begin{itemize}
+						\item 
+						\[
+						C + D = 
+						\begin{bmatrix}
+						0 + 3 & 1 + 0 \\
+						5 + 2 & 0 + 1
+						\end{bmatrix}
+						= 
+						\begin{bmatrix}
+						3 & 1 \\
+						7 & 1
+						\end{bmatrix}
+						\]
+						\item
+						\[
+						(C + D) * E = 
+						\begin{bmatrix}
+						2 & 4 \\
+						2 & 8
+						\end{bmatrix}
+						\]
+					\end{itemize}
+				\item $M_6 = (A + B) * H$
+					\begin{itemize}
+						\item 
+						\[
+						A + B = 
+						\begin{bmatrix}
+						1 + 2 & 0 + 1 \\
+						4 + 1 & 1 + 0
+						\end{bmatrix}
+						= 
+						\begin{bmatrix}
+						3 & 1 \\
+						5 & 1
+						\end{bmatrix}
+						\]
+						\item
+						\[
+						(A + B) * H = 
+						\begin{bmatrix}
+						8 & 3 \\
+						10 & 5
+						\end{bmatrix}
+						\]
+					\end{itemize}
+				\item $M_7 = D * (G - E)$ 
+					\begin{itemize}
+						\item 
+						\[
+						G - E = 
+						\begin{bmatrix}
+						2 - 0 & 0 - 1 \\
+						1 - 2 & 3 - 1
+						\end{bmatrix}
+						= 
+						\begin{bmatrix}
+						2 & -1 \\
+						-1 & 2
+						\end{bmatrix}
+						\]
+						\item
+						\[
+						D * (G - E) = 
+						\begin{bmatrix}
+						6 & -3 \\
+						3 & 0
+						\end{bmatrix}
+						\]
+					\end{itemize}
+			\end{itemize}
+		\item The final solution is as follows
+			\[
+			Z = 
+			\begin{bmatrix}
+			I & J \\
+			K & L \\
+			\end{bmatrix}
+			=
+			\begin{bmatrix}
+			M_2 + M_3 - M_6 - M_7 && M_4 + M_6 \\
+			M_5 + M_7 && M_1 - M_3 - M_4 - M_5
+			\end{bmatrix}
+			=
+			\begin{bmatrix}
+			5 & 4 & 7 & 3 \\
+			4 & 5 & 1 & 9 \\
+			8 & 1 & 3 & 7 \\
+			5 & 8 & 7 & 7
+			\end{bmatrix}
+			\]
+ 		\end{itemize}
+	\end{itemize}
 
+	\pagebreak
+	\section{Question 5}
+	What are the minimum and maximum possible recursion depths for a randomized Quicksort?
+		\begin{itemize}
+			\item The minimum possible recursion depth, which occurs when the median is picked, is $O(log(n))$
+			\item The maximum possible recursion depth, which occurs when the smallest number is picked, is $O(n)$
+		\end{itemize}
+	\section{Question 6}
+	Convert the following recurrence formula into Big O notation: 
+	$T(1) = 1$ and $T(n) \le T(\sqrt n)+1$ 
+		\begin{itemize}
+			\item $T(n) = T(n/2) + 1$ is $O(\log_2 n)$ because the resulting tree has a height of $\log_2 n$
+			\item For this recurrence, we are dividing $n$ by a factor of two, this the Big O form will be $O(\log \log n)$
+		\end{itemize}
+	\section{Question 7}
+	\section{Question 8}
+	\section{Question 9}
+	\section{Question 10}
+	\section{Question 11}
+	\section{Question 12}
+  
 \end{document}
