@@ -5,7 +5,7 @@
 \author{Rofael Aleezada}
 
 \usepackage[left=2.5cm, right=2.5cm, top=2.5cm]{geometry}
-\usepackage{mathtools,graphicx,amsmath,xfrac}
+\usepackage{mathtools,graphicx,amsmath,xfrac,algpseudocode}
 
 \begin{document}
     \maketitle
@@ -400,14 +400,157 @@
 	Convert the following recurrence formula into Big O notation: 
 	$T(1) = 1$ and $T(n) \le T(\sqrt n)+1$ 
 		\begin{itemize}
-			\item $T(n) = T(n/2) + 1$ is $O(\log_2 n)$ because the resulting tree has a height of $\log_2 n$
+			\item $T(n) = T(n/2) + 1$ is $O(\log n)$ because the resulting tree has a height of $\log_2 n$
 			\item For this recurrence, we are dividing $n$ by a factor of two, this the Big O form will be $O(\log \log n)$
 		\end{itemize}
 	\section{Question 7}
+	Given an array of unique values that starts in ascending order, reaches a max value, then goes into descending order,
+	find the max value in logarithmic time
+		\begin{algorithmic}
+			\Function{findMax}{arr, a, b}
+				\Comment{Searches for the maximum value in arr in range $[a, b]$}
+				\If{a == b}
+					\Return arr[a]
+				\EndIf
+				\If{b - a == 1}
+					\Return \Call{max}{arr[a], arr[b]}
+				\EndIf
+					\Comment{Assume the median is the largest value}
+				
+				m = arr[(a + b) / 2]
+				
+				mLeft = \Call{findMax}{arr, a, m - 1}
+				
+				mRight = \Call{findMax}{arr, m + 1, b}
+					\Comment{Compare with the other medians}
+				\If{m $\ge$ mLeft \textbf{and} m $\ge$ mRight}
+					\Return m
+				\EndIf
+				\If{mLeft $\ge$ m \textbf{and} mLeft $\ge$ mRight}
+					\Return mLeft
+				\EndIf
+				
+				\Return mRight
+			\EndFunction
+		\end{algorithmic}
 	\section{Question 8}
+	Given a sorted array containing unique positive, negative, and zero integers, determine where there exists a value $i$ such that $A[i] = i$ 
+	as time efficient as possible
+		\begin{algorithmic}
+			\Function{findIEqualsAI}{arr}
+			
+				max = \Call{len}{arr} 
+				
+				zeroPos = \Call{binarySearch}{arr, 0, max - 1}
+				
+				\For{i in [zeroPos, max]}
+					\If{arr[i] == i}
+						\Return true
+					\EndIf
+				\EndFor
+		
+				\Return false
+			\EndFunction
+			
+		\end{algorithmic}
+	
+	\pagebreak
 	\section{Question 9}
+	Given an array with a random k shift, find a value in logarithmic time
+		\begin{algorithmic}
+			\Function{findInKShifted}{arr, val, a, b}
+				\If{a == b and arr[a] != val} 
+					\Return -1 
+				\EndIf
+				
+				m = $(a + b) / 2$
+				\If{arr[m] == val} 
+					\Return m 
+				\EndIf
+				
+				\If{arr[m-1] $\le$ arr[m] $\le$ arr[m+1]}
+					\Comment{If median is in correct order, we can search like normal Binary Search}
+					\If{val $>$ arr[m]} 
+						\Return \Call{findInKShifted}{arr, val, m + 1, b} 
+					\Else 
+						\Return \Call{findInKShifted}{arr, val, a, m-1} 
+					\EndIf
+				\Else
+					\Comment{Otherwise, have to flip because value is on other side}
+					\If{val $>$ arr[m]} 
+						\Return \Call{findInKShifted}{arr, val, a, m-1} 
+					\Else 
+						\Return \Call{findInKShifted}{arr, val, m+1, b} 
+					\EndIf
+				\EndIf
+			\EndFunction
+		\end{algorithmic}
 	\section{Question 10}
+	Design a recursive algorithm for solving $2^n = 2^{(n-1)}  + 2^{(n-1)}$. Set up a recurrence relation for the number of additions and draw a tree of recursive calls
+		\begin{algorithmic}
+			\Function{twoToThePower}{n}
+				\If{n == 0}
+					\Return 1
+				\EndIf
+				
+				\Return \Call{twoToThePower}{n-1} + \Call{twoToThePower}{n-1}
+			\EndFunction
+		\end{algorithmic}
+	
+	The recurrence relationship would be $T(0) = 1$ and $T(n) = 2T(n-1)$
+		\begin{itemize}
+			\item $T(n) = 2T(n-1)$
+			\item $T(n-1) = 2*2T(n-2) = 4*T(n-2)$
+			\item $T(n-2) = 4*2T(n-3) = 8*T(n-2)$
+			\item $T(n) = 2^n * 1 = 2^n$
+		\end{itemize}
+	The recurrence relationship will have $2^n$ additions.
+	\begin{center}
+		\includegraphics[scale=0.1]{q10.jpg}
+	\end{center}
 	\section{Question 11}
+	Consider the provided algorithm. If it is correct, prove it. Otherwise, fix it. 
+	\begin{itemize}
+		\item The algorithm will fail because it is not actually accumulating if a leaf is traversed
+	\end{itemize}
+	A corrected form would be
+		\begin{algorithmic}
+			\Function{LeafCounter}{T}
+				\If{T is empty} 
+					\Return 0
+				\EndIf
+				
+				\If{$T_{left}$ is empty and $T_{right}$ is empty}
+					\Return 1
+				\EndIf
+				
+				\Return \Call{LeafCounter}{$T_{left}$} + \Call{LeafCounter}{$T_{right}$}
+			\EndFunction
+		\end{algorithmic}
 	\section{Question 12}
+	Design an algorithm that rearranges an array such that all negative numbers precede all positive numbers in efficient space and time complexity
+		\begin{algorithmic}
+			\Function{rearrange}{arr}
+				
+				positives = []
+				
+				negatives = []
+				
+				\For{num in arr}
+					\If{num $<$ 0}
+						\Call{append}{negatives, num}
+					\Else
+						\Call{append}{positives, num}
+					\EndIf
+				\EndFor
+				
+				\For{pos in positives}
+					\Call{append}{negatives, pos}
+				\EndFor
+				
+				\Return negatives
+			\EndFunction
+		\end{algorithmic}
+	Linear space and linear time complexity
   
 \end{document}

@@ -1,3 +1,6 @@
+# python3 q15_bruteforce_and_d_and_c.py
+# Data files should be in the same directory as the python file
+
 import os
 from math import log10
 from timeit import default_timer as timer

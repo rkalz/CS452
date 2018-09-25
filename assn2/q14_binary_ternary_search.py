@@ -1,3 +1,6 @@
+# python3 q14_binary_ternary_search.py
+# 100000 should be in same directory as this Python file
+
 import os
 from math import log10
 from timeit import default_timer as timer
