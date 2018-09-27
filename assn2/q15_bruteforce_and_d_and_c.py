@@ -108,6 +108,3 @@ if __name__ == "__main__":
     plt.ylabel("Time Taken (sec)")
     plt.legend([bft_graph, dct_graph], ["Brute Force Times", "Divide and Conquer Times"])
     plt.show()
-
-
-
