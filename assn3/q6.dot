@@ -1,0 +1,8 @@
+digraph {
+
+    "A" -> "B" [xlabel="1"]
+    "A" -> "D" [xlabel="5"]
+    "B" -> "C" [xlabel="2"]
+    "B" -> "D" [xlabel="4"]
+    "C" -> "D" [xlabel="3"]
+}

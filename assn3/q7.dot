@@ -1,0 +1,14 @@
+digraph {
+
+    rank1 [style=invisible]
+
+    "B" -> "A" [xlabel="1"]
+    "A" -> "C" [xlabel="2"]
+    "B" -> "C" [xlabel="-5"]
+
+    {
+        rank = same;
+        rank1 -> "B" -> "C" [style=invis]
+        rankdir = LR;
+    }
+}

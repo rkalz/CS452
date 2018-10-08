@@ -1,0 +1,143 @@
+\documentclass{article}
+
+\title{CS 452: Assignment 3}
+\date{October 8, 2018}
+\author{Rofael Aleezada}
+
+\usepackage[left=2.5cm, right=2.5cm, top=2.5cm]{geometry}
+\usepackage{mathtools, graphicx, amsmath, xfrac, algpseudocode}
+
+\begin{document}
+	\maketitle
+	
+	\section{Question 1}
+	\begin{algorithmic}
+		\Function{GreedyCoins}{amount, denominations}
+			
+			\Call{reverseSort}{denominations}
+			
+			remaining = amount
+			
+			coins = []
+			
+			\While{remaining $!=$ 0}
+				\If{remaining $<$ 0}
+					\State \Return{None}
+				\EndIf
+				\For{coin : denominations}
+					\If{remaining - coin $>$ 0} 
+						\State \Call{append}{coins, coin} 
+						\State remaining -= coin
+					\EndIf
+				\EndFor
+			\EndWhile
+			
+			\Return coins
+		\EndFunction
+	\end{algorithmic}
+
+	Case where greedy algorithm fails:
+	\begin{itemize}
+		\item Let $amount = 30$ and $denominations = [20, 15, 1]$
+		\item The most optimal solution is $[15, 15]$
+		\item But our greedy algorithm will return $[20, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]$
+	\end{itemize}
+
+	\section{Question 2}
+	\includegraphics[scale=0.1]{q2.jpg}
+	\pagebreak
+	
+	\section{Question 3}
+	\begin{center}
+		Balanced Binary Tree \\ 
+		\includegraphics[scale=0.5]{q3-bt.png} \\
+		\textbf{Bits Needed: 3 (F = 101)}
+	\end{center}
+	\begin{center}
+		Hoffman Tree \\
+		\includegraphics[scale=0.5]{q3-huff.png} \\
+		\textbf{Bits Needed: 5 (F = 11111)}
+	\end{center}
+	\pagebreak
+	
+	\section{Question 4}
+	\begin{center}
+		\includegraphics[scale=0.5]{q4.png}
+	\end{center}
+
+	\section{Question 5}
+	The optimal Huffman encodings are
+	\begin{itemize}
+		\item A = 1111111
+		\item B = 1111110
+		\item C = 111110
+		\item D = 11110
+		\item E = 1110
+		\item F = 110
+		\item G = 10
+		\item H = 0
+	\end{itemize}
+	Thus, to find the encoding of the $ith$ Fibonacci number in a Huffman tree with frequencies of the first n Fibonacci numbers
+	\begin{itemize}
+		\item H(nth character) = $0$
+		\item H(ith character) = $H(i-1) + 2^{(n - i + 1)}$ $(1 < i < n)$
+		\item H(1st character) = $H(2) + 1$
+	\end{itemize}
+
+	\section{Question 6}
+	\textbf{False} \\ 
+	\begin{center}
+		Consider the following graph \\
+		\includegraphics[scale=0.5]{q6.png} \\
+		In this case, the shortest path between A and D is $A->D$. \\
+		However, when all weights are doubled, the shortest path becomes $A->B->C->D$.
+	\end{center}
+	
+	
+	\section{Question 7}
+	\textbf{False} \\ 
+	Djikstra determines whether to update a cost and parent by comparing $cost(A) + dist(A,B) <= cost(B)$ \\
+	With negative costs, this can result in an incorrect shortest path 
+	\begin{center}
+		\includegraphics[scale=0.5]{q7.png} \\ 
+		Djikstra will return $B->C$, even though $B->A->C$ is optimal.
+	\end{center}
+
+	
+	\section{Question 8}
+	\textbf{True} \\
+	MST depends on the ordering of the weights, rather than their actual values. Since the ordering will be the same, the MST will still be valid.	
+	\pagebreak
+	
+	\section{Question 11}
+	
+	\begin{algorithmic}
+		\Function{randomPartition}{A, l, r} 
+			\State rand = \Call{random}{l, r} \\
+			\State temp = A[l] 
+			\State A[l] = A[rand] 
+			\State A[rand] = temp \\
+			\State \Return \Call{partition}{A, l, r}
+		\EndFunction \\
+		
+		\Function{randomQuickSort}{A, l, r}
+			\If{l $<$ r}
+				\State p = \Call{randomPartition}{A, l, r}
+				\State \Call{randomQuickSort}{A, l, p -1}
+				\State \Call{randomQuickSort}{A, p + 1, r}
+			\EndIf
+		\EndFunction \\
+	\end{algorithmic} 
+
+	Every call to randomPartition takes $O(1) + O(r - l)$, which is $O(n)$. \\
+	Thus, each call in randomQuickSort is $T(n) = 2T(n/2) + O(n)$. \\
+	Using the Master Theorem $(a = 2, b = 2, f(n) = O(n)$, \\
+	we conclude that randomized Quick Sort is $O(n log n)$
+	
+	\section{Question 12}
+	\begin{center}
+		\includegraphics[scale=0.5]{q12_result.png} \\ 
+		Median values will print when code is executed
+	\end{center}
+	
+\end{document}
