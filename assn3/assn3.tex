@@ -56,7 +56,7 @@
 	\begin{center}
 		Hoffman Tree \\
 		\includegraphics[scale=0.5]{q3-huff.png} \\
-		\textbf{Bits Needed: 5 (F = 11111)}
+		\textbf{Bits Needed: 5 (B = 11111)}
 	\end{center}
 	\pagebreak
 	
@@ -109,8 +109,37 @@
 	MST depends on the ordering of the weights, rather than their actual values. Since the ordering will be the same, the MST will still be valid.	
 	\pagebreak
 	
-	\section{Question 11}
+	\section{Question 10}
+	\begin{algorithmic}
+		\Function{happyPeople}{people, candies}
+			\State happy = 0
+			\State max = 0
+			\For{candy : candies}
+				\If{candy $>$ max} 
+					max = candy
+				\EndIf
+			\EndFor
+			
+			\State count = max * []
+			\For{candy : candies}
+				count[candy] += 1
+			\EndFor
+			
+			\For{greed : people}
+				\For{i .. [greed, max]}
+					\If{count[i] $>$ 0}
+						\State happy += 1 
+						\State count[i] -= 1 
+						\State break
+					\EndIf
+				\EndFor
+			\EndFor
+				
+			\Return happy
+		\EndFunction
+	\end{algorithmic}
 	
+	\section{Question 11}
 	\begin{algorithmic}
 		\Function{randomPartition}{A, l, r} 
 			\State rand = \Call{random}{l, r} \\
