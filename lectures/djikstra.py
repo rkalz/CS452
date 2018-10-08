@@ -47,17 +47,17 @@ class Graph:
         queue = []
 
         for _, node in self.nodes.items():               # O(|V| log |V|)
+            node.parent = None
             if node is not origin:
-                node.parent = None
                 node.cost = sys.maxsize
             heapq.heappush(queue, node)
 
         while len(queue) != 0:
             parent = heapq.heappop(queue)
             for dist, child in parent.children.items():  # O(|E|)
-                new_dist = parent.cost + dist
-                if new_dist < child.cost:
-                    child.cost = new_dist
+                new_cost = parent.cost + dist
+                if new_cost < child.cost:
+                    child.cost = new_cost
                     child.parent = parent.id
 
                     # Reorder heap based on new values
@@ -89,14 +89,9 @@ if __name__ == "__main__":
     graph.connect('B', 'C', 3)
     graph.connect('A', 'D', 12)
     graph.connect('B', 'D', 6)
-    graph.connect('B', 'E', 13)
+    graph.connect('B', 'E', 24)
     graph.connect('C', 'D', 4)
     graph.connect('D', 'E', 10)
     graph.connect('C', 'E', 19)
 
     print(graph.shortest_path('A', 'E'))
-
-
-
-
-
