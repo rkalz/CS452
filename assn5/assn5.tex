@@ -1,0 +1,126 @@
+\documentclass{article}
+
+\title{CS 452: Assignment 5}
+\date{November 9, 2018}
+\author{Rofael Aleezada}
+
+\usepackage[left=2.5cm, right=2.5cm, top=2.5cm]{geometry}
+\usepackage{mathtools, graphicx, amsmath, xfrac, algpseudocode}
+
+\begin{document}
+	\maketitle
+	
+	\section{Question 1}
+		\begin{itemize}
+			\item A B-tree is a self balancing tree that allows for traversal of sorted data in logarithmic time
+			\item B-trees are used in databases not only because of their logarithmic traversal, but because disk read operations are slow,
+			and a B-tree containing a large amount items can be read with minimal disk operations.
+		\end{itemize}
+
+	\section{Question 2}
+		\begin{itemize}
+			\item First build an array by traversing the BST in order ($O(n)$ space and time). This will give us the sorted order of the values in the BST.
+			\item Then, initialize a variable r at infinity. Then, for each number in the array from the second to the last, take the difference between the array values at indices i and i-1. If this value is less than r, replace r with said value.
+		\end{itemize}
+	
+	\section{Question 3}
+		\begin{algorithmic}
+			\Function{BSTSum}{node, sum, target}
+				\State sum = sum + node.val
+				\If{$sum == target$}
+					\State \Return{True}
+				\EndIf
+				
+				
+				\State result = False
+				\If{node.left != null}
+					\State result = result or \Call{BSTSum}{node.left, sum, target}
+				\EndIf
+				
+				\If{node.right != null}
+					\State result = result or  \Call{BSTSum}{node.right, sum, target}
+				\EndIf
+				
+				
+				\State \Return{result}
+			\EndFunction
+		\end{algorithmic}
+
+	\pagebreak
+	\section{Question 4}
+		\begin{algorithmic}
+			\Function{MaxDepth}{node, currentDepth}
+				\If{node == null}
+					\State \Return{currentDepth - 1}
+				\EndIf
+				
+				\State left = \Call{MaxDepth}{node.left, currentDepth + 1}
+				\State right = \Call{MaxDepth}{node.right, currentDepth + 1}
+				\State \Return \Call{Max}{left, right}
+				
+			\EndFunction
+		\end{algorithmic}
+	
+		\begin{itemize}
+			\item The recurrence of this function is $T(n) = 2T(n/2) + O(1)$, which is equivalent to $O(n)$
+			\item This makes sense, as we are iterating over each node in the tree once.
+		\end{itemize}
+	
+	\section{Question 5}
+	\begin{center}
+		\includegraphics[scale=0.25]{q5-worst.png} \\
+		In the worst case, the BST will be essentially a linked list, with a maximum depth of $n$, 7. \\ 
+		\includegraphics[scale=0.5]{q5-best.png} \\
+		In the best case, the BST will be balanced, with a minimum depth of $log(n)$, 3.
+	\end{center}
+
+\pagebreak
+\section{Question 6}
+	\begin{itemize}
+		\item Unsorted array
+		\begin{itemize}
+			\item Search - $O(n)$
+			\item Insert - $O(n)$
+			\item Delete - $O(n)$
+			\item Print All - $O(n)$
+			\item Find Min - $O(n)$
+			\item Find Median - $O(nlogn)$
+			\item Find Max - $O(n)$
+			\item Find Successor - $O(n)$
+		\end{itemize}
+		\item Sorted array
+		\begin{itemize}
+			\item Search - $O(logn)$
+			\item Insert - $O(n)$
+			\item Delete - $O(n)$
+			\item Print All - $O(n)$
+			\item Find Min - $O(1)$
+			\item Find Median - $O(1)$
+			\item Find Max - $O(1)$
+			\item Find Successor - $O(1)$
+		\end{itemize}
+		\item Linked list
+		\begin{itemize}
+			\item Search - $O(n)$
+			\item Insert - $O(n)$
+			\item Delete - $O(n)$
+			\item Print All - $O(n)$
+			\item Find Min - $O(n)$
+			\item Find Median - $O(nlogn)$
+			\item Find Max - $O(n)$
+			\item Find Successor - $O(n)$
+		\end{itemize}
+		\item Balanced BST
+		\begin{itemize}
+			\item Search - $O(logn)$
+			\item Insert - $O(logn)$
+			\item Delete - $O(logn)$
+			\item Print All - $O(n)$
+			\item Find Min - $O(logn)$
+			\item Find Median - $O(logn)$
+			\item Find Max - $O(logn)$
+			\item Find Successor - $O(n)$
+		\end{itemize}
+	\end{itemize}
+	
+\end{document}
